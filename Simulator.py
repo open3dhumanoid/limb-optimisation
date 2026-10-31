@@ -75,7 +75,6 @@ def elementStiffness(nu, pitch, incompatible):
     k0 = kuu - kua @ numpy.linalg.solve(kaa, kua.T) if incompatible else kuu
     k0 = 0.5 * (k0 + k0.T)
 
-    # Strain at the element centre (the incompatible modes have zero strain there)
     dNcentre = 0.125 * signs * (2 / pitch)
     centreStrain = numpy.column_stack([strainColumn(dNcentre[a], d) for a in range(8) for d in range(3)])
     return k0, centreStrain, D

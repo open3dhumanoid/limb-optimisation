@@ -13,6 +13,15 @@ The three parameters under study will be optimised with respect to a given limb.
 To achieve this optimisation, a GA is employed. Each parameter forms a gene and a combination of the 3 parameters forms a genotype. A population of 500, per generation, is used to ensure
 sufficient exploration of the fitness landscape.
 
+## Fitness Function
+The fitness of a given genotype, $\theta$, is equal to:
+$$
+f_{\theta}(m) = -\bigg(\phi_{\text{solid}}(\theta) + \lambda \cdot \text{max}\bigg(0, \frac{SF_{\text{target}}}{SF(\theta)} - 1\bigg)^2\bigg)
+$$
+Where:
+- $SF$ denotes the safety factor:
+- $\phi_{\text{solid}}(\theta)$ is the solid fraction the genotype $\theta$ resulted in during voxel optimisation.
+
 # Simulation
 
 To be determined!

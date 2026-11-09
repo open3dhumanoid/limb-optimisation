@@ -8,12 +8,10 @@ PITCH = 2.0
 
 
 def fixture(coords):
-    # whole bottom face, z = 0
     return coords[:, 0] <= 0.5 * PITCH
 
 
 def loadSelector(coords):
-    # 0.3 x 0.3 patch in the centre of the top face, z = SIDE
     return coords[:, 0] >= LENGTH - 0.5 * PITCH
 
 matrix, _, _ = Auxiliary.voxelise("STLs/forearm.stl", PITCH)

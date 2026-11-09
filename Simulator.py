@@ -87,7 +87,6 @@ def gatherElements(u, shape):
     )
     return ue.reshape(u.shape[0], 24, -1)
 
-
 def applyStiffness(u, E, k0):
     batch = u.shape[0]
     shape = E.shape[1:]
@@ -99,11 +98,9 @@ def applyStiffness(u, E, k0):
         out[:, :, ox:ox + nx, oy:oy + ny, oz:oz + nz] += fe[:, a]
     return out
 
-
 def applyMasked(u, level):
     mask = level["mask"]
     return mask * applyStiffness(mask * u, level["E"], level["k0"]) + (1 - mask) * u
-
 
 def stiffnessDiagonal(E, k0Diagonal):
     batch, nx, ny, nz = E.shape
@@ -113,11 +110,9 @@ def stiffnessDiagonal(E, k0Diagonal):
             diagonal[:, d, ox:ox + nx, oy:oy + ny, oz:oz + nz] += E * k0Diagonal[3 * a + d]
     return diagonal
 
-
 def elementEnergy(u, k0, shape):
     ue = gatherElements(u, shape)
     return (ue * xp.matmul(k0, ue)).sum(axis = 1).reshape(u.shape[0], *shape)
-
 
 def nodeAttached(elements):
     batch, nx, ny, nz = elements.shape

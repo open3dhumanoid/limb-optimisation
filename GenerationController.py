@@ -1,13 +1,25 @@
 import pandas
 import numpy
 import os
+from Evolver import Evolver
+from concurrent.futures import ProcessPoolExecutor
 
 class GenerationController:
-    _GEN_PATH = "generations/"
-    _STL_PATH = "stls/"
-    def __init__(self, saveStep, popAmount, max, min, seed):
+    _GEN_PATH     = "generations/"
+    _FITNESS_PATH = "fitnesses/"
+    _STL_PATH     = "stls/"
+    def __init__(self, saveStep, popAmount, max, min, seed, optimiserControlVars, evolverControlVars):
         self._saveStep = saveStep
         self._genCount = self._readGenerationCount()
+        self._evolver  = Evolver(
+            tournamentSize   = evolverControlVars["tournamentSize"],
+            kFittest         = evolverControlVars["kFittest"],
+            mutationRate     = evolverControlVars["mutationRate"],
+            sigma            = evolverControlVars["sigma"],
+            areParamsDynamic = evolverControlVars["areParamsDynamic"],
+            seed             = seed
+        )
+
 
         if self._genCount == 0:
             self._generation = self._initProgenitorGeneration(
@@ -51,5 +63,5 @@ class GenerationController:
 
         return gen
 
-    def run(self):
+    def runGA(self):
         ...
